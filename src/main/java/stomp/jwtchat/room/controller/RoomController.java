@@ -36,7 +36,7 @@ public class RoomController {
      * 채팅방 입장
      */
     @GetMapping("/{roomId}")
-    public String joinRoom(@PathVariable(required = false) Long roomId, Model model, HttpSession session) {
+    public String joinRoom(@PathVariable(name = "roomId", required = false) Long roomId, Model model, HttpSession session) {
         String loginId = (String) session.getAttribute("user");
         roomService.saveRoom(loginId, roomId);
         List<ChatDto> chatList = chatService.findAllChatByRoomId(roomId);
@@ -45,6 +45,9 @@ public class RoomController {
         model.addAttribute("chatList", chatList);
         return "chat/roomIn";
     }
+
+
+
 
     /**
      * 채팅방 등록

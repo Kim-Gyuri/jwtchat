@@ -21,7 +21,7 @@ public class ChatController {
 
     @MessageMapping("/{roomId}")
     @SendTo("/room/{roomId}") // 여길 구독하고 있는 곳으로 메시지 전송
-    public ChatDto messageHandler(@DestinationVariable Long roomId, ChatDto message, @Header("token") String token) {
+    public ChatDto messageHandler(@DestinationVariable("roomId") Long roomId, ChatDto message, @Header("token") String token) {
         String loginId = jwtTokenProvider.getUserNameFromJwt(token);//loginId 가져옴
         return chatService.createChat(roomId, message.getMessage(), loginId);
     }
